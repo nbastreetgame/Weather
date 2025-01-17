@@ -35,5 +35,8 @@ final class LocationManager: NSObject, CLLocationManagerDelegate {
         self.location = location
         manager.stopUpdatingLocation()
     }
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+            print("Error to request location\n\(error)")
+        }
 }
  

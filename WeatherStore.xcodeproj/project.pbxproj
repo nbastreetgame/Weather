@@ -6,6 +6,13 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		5EB6EAF32D3A6017005705F1 /* CombineMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 5EB6EAF22D3A6017005705F1 /* CombineMoya */; };
+		5EB6EAF52D3A6017005705F1 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 5EB6EAF42D3A6017005705F1 /* Moya */; };
+		5EB6EAF72D3A6017005705F1 /* ReactiveMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 5EB6EAF62D3A6017005705F1 /* ReactiveMoya */; };
+		5EB6EAF92D3A6017005705F1 /* RxMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 5EB6EAF82D3A6017005705F1 /* RxMoya */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		18C75F452D32442B009E4590 /* WeatherStore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherStore.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -34,11 +41,6 @@
 			path = ViewControllers;
 			sourceTree = "<group>";
 		};
-		5EB6EA452D38BE68005705F1 /* ViewModels */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = ViewModels;
-			sourceTree = "<group>";
-		};
 		5EB6EA462D38BE8B005705F1 /* Models */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = Models;
@@ -54,6 +56,11 @@
 			path = NetworkManager;
 			sourceTree = "<group>";
 		};
+		5EB6EAFA2D3A633F005705F1 /* Screens */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Screens;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +68,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5EB6EAF52D3A6017005705F1 /* Moya in Frameworks */,
+				5EB6EAF32D3A6017005705F1 /* CombineMoya in Frameworks */,
+				5EB6EAF92D3A6017005705F1 /* RxMoya in Frameworks */,
+				5EB6EAF72D3A6017005705F1 /* ReactiveMoya in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,10 +81,10 @@
 		18C75F3C2D32442B009E4590 = {
 			isa = PBXGroup;
 			children = (
+				5EB6EAFA2D3A633F005705F1 /* Screens */,
 				5EB6EA582D38F537005705F1 /* NetworkManager */,
 				5EB6EA472D38BEA4005705F1 /* Managers */,
 				5EB6EA462D38BE8B005705F1 /* Models */,
-				5EB6EA452D38BE68005705F1 /* ViewModels */,
 				5EB6EA442D38BE48005705F1 /* ViewControllers */,
 				18C75F472D32442B009E4590 /* WeatherStore */,
 				18C75F462D32442B009E4590 /* Products */,
@@ -106,13 +117,17 @@
 			fileSystemSynchronizedGroups = (
 				18C75F472D32442B009E4590 /* WeatherStore */,
 				5EB6EA442D38BE48005705F1 /* ViewControllers */,
-				5EB6EA452D38BE68005705F1 /* ViewModels */,
 				5EB6EA462D38BE8B005705F1 /* Models */,
 				5EB6EA472D38BEA4005705F1 /* Managers */,
 				5EB6EA582D38F537005705F1 /* NetworkManager */,
+				5EB6EAFA2D3A633F005705F1 /* Screens */,
 			);
 			name = WeatherStore;
 			packageProductDependencies = (
+				5EB6EAF22D3A6017005705F1 /* CombineMoya */,
+				5EB6EAF42D3A6017005705F1 /* Moya */,
+				5EB6EAF62D3A6017005705F1 /* ReactiveMoya */,
+				5EB6EAF82D3A6017005705F1 /* RxMoya */,
 			);
 			productName = WeatherStore;
 			productReference = 18C75F452D32442B009E4590 /* WeatherStore.app */;
@@ -186,6 +201,9 @@
 				DEVELOPMENT_TEAM = 2Y68U3Y99J;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WeatherStore/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "вы уверены что хотите чтобы мы знали вашу локацию?";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "вы уверны что хотите разрешить нам доступ к локации?";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "вы согласны?";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
@@ -214,6 +232,9 @@
 				DEVELOPMENT_TEAM = 2Y68U3Y99J;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WeatherStore/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "вы уверены что хотите чтобы мы знали вашу локацию?";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "вы уверны что хотите разрешить нам доступ к локации?";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "вы согласны?";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
@@ -384,6 +405,25 @@
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		5EB6EAF22D3A6017005705F1 /* CombineMoya */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CombineMoya;
+		};
+		5EB6EAF42D3A6017005705F1 /* Moya */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Moya;
+		};
+		5EB6EAF62D3A6017005705F1 /* ReactiveMoya */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ReactiveMoya;
+		};
+		5EB6EAF82D3A6017005705F1 /* RxMoya */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = RxMoya;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 18C75F3D2D32442B009E4590 /* Project object */;
 }
