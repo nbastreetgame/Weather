@@ -29,6 +29,31 @@
 			path = WeatherStore;
 			sourceTree = "<group>";
 		};
+		5EB6EA442D38BE48005705F1 /* ViewControllers */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		5EB6EA452D38BE68005705F1 /* ViewModels */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		5EB6EA462D38BE8B005705F1 /* Models */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Models;
+			sourceTree = "<group>";
+		};
+		5EB6EA472D38BEA4005705F1 /* Managers */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		5EB6EA582D38F537005705F1 /* NetworkManager */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = NetworkManager;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +70,11 @@
 		18C75F3C2D32442B009E4590 = {
 			isa = PBXGroup;
 			children = (
+				5EB6EA582D38F537005705F1 /* NetworkManager */,
+				5EB6EA472D38BEA4005705F1 /* Managers */,
+				5EB6EA462D38BE8B005705F1 /* Models */,
+				5EB6EA452D38BE68005705F1 /* ViewModels */,
+				5EB6EA442D38BE48005705F1 /* ViewControllers */,
 				18C75F472D32442B009E4590 /* WeatherStore */,
 				18C75F462D32442B009E4590 /* Products */,
 			);
@@ -75,6 +105,11 @@
 			);
 			fileSystemSynchronizedGroups = (
 				18C75F472D32442B009E4590 /* WeatherStore */,
+				5EB6EA442D38BE48005705F1 /* ViewControllers */,
+				5EB6EA452D38BE68005705F1 /* ViewModels */,
+				5EB6EA462D38BE8B005705F1 /* Models */,
+				5EB6EA472D38BEA4005705F1 /* Managers */,
+				5EB6EA582D38F537005705F1 /* NetworkManager */,
 			);
 			name = WeatherStore;
 			packageProductDependencies = (
@@ -107,6 +142,9 @@
 			);
 			mainGroup = 18C75F3C2D32442B009E4590;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				5EB6EA542D38E6B1005705F1 /* XCRemoteSwiftPackageReference "Moya" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 18C75F462D32442B009E4590 /* Products */;
 			projectDirPath = "";
@@ -150,7 +188,7 @@
 				INFOPLIST_FILE = WeatherStore/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -178,7 +216,7 @@
 				INFOPLIST_FILE = WeatherStore/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -335,6 +373,17 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		5EB6EA542D38E6B1005705F1 /* XCRemoteSwiftPackageReference "Moya" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Moya/Moya";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 15.0.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
 	};
 	rootObject = 18C75F3D2D32442B009E4590 /* Project object */;
 }
