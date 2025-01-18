@@ -36,6 +36,11 @@
 			path = WeatherStore;
 			sourceTree = "<group>";
 		};
+		5E2760422D3BAEEF00A1C17A /* UI */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = UI;
+			sourceTree = "<group>";
+		};
 		5EB6EA442D38BE48005705F1 /* ViewControllers */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = ViewControllers;
@@ -81,6 +86,7 @@
 		18C75F3C2D32442B009E4590 = {
 			isa = PBXGroup;
 			children = (
+				5E2760422D3BAEEF00A1C17A /* UI */,
 				5EB6EAFA2D3A633F005705F1 /* Screens */,
 				5EB6EA582D38F537005705F1 /* NetworkManager */,
 				5EB6EA472D38BEA4005705F1 /* Managers */,
@@ -116,6 +122,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				18C75F472D32442B009E4590 /* WeatherStore */,
+				5E2760422D3BAEEF00A1C17A /* UI */,
 				5EB6EA442D38BE48005705F1 /* ViewControllers */,
 				5EB6EA462D38BE8B005705F1 /* Models */,
 				5EB6EA472D38BEA4005705F1 /* Managers */,

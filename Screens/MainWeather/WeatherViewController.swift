@@ -1,94 +1,82 @@
 import UIKit
 
-// MARK: - CustomLabel
-class CustomLabel: UILabel {
-    init(fontSize: CGFloat) {
-        super.init(frame: .zero)
-        self.font = UIFont.systemFont(ofSize: fontSize)
-        self.textAlignment = .center
-        self.numberOfLines = 1
-        self.translatesAutoresizingMaskIntoConstraints = false
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
-
 // MARK: - WeatherViewController
 
 class WeatherViewController: UIViewController {
     
- // MARK: - UI Elements
-   
+    
+    // MARK: - UI Elements
+    
     private let temperatureLabel = CustomLabel(fontSize: 48)
     private let cityLabel = CustomLabel(fontSize: 24)
     private let conditionLabel = CustomLabel(fontSize: 36)
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupBackground()
+      //  setupBackground()
         setupUI()
         getLocation()
         view.backgroundColor = .systemBackground
-//MARK: - Изменение цвета в зависимости от времени суток
-        
-        func setupBackground() {
-            let currentHour = Calendar.current.component(.hour, from: Date())
-            
-            
-            let backgroundImage: UIImage
-            
-            if currentHour >= 7 && currentHour < 15 {
-                // Утро: 7:00 - 14:59
-                backgroundImage = UIImage(named: "morning_background")!
-            } else if currentHour >= 15 && currentHour < 19 {
-                // Вечер: 15:00 - 18:59
-                backgroundImage = UIImage(named: "evening_background")!
-            } else {
-                // Ночь: 19:00 - 6:59
-                backgroundImage = UIImage(named: "night_background")!
-            }
-            let backgroundImageView = UIImageView(image: backgroundImage)
-            backgroundImageView.contentMode = .scaleAspectFill
-            backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
-            view.addSubview(backgroundImageView)
-            
-            // Устанавливаем ограничения для изображения фона
-            NSLayoutConstraint.activate([
-                backgroundImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                backgroundImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-                backgroundImageView.topAnchor.constraint(equalTo: view.topAnchor),
-                backgroundImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-            ])
-            
-            view.sendSubviewToBack(backgroundImageView)
-        }
-        
-        
-// MARK: - Lifecycle Methods
-        
-        func setupUI() {
-            // Добавляем метки на экран
-            view.addSubview(temperatureLabel)
-            view.addSubview(cityLabel)
-            view.addSubview(conditionLabel)
-            
-            
-            NSLayoutConstraint.activate([
-                temperatureLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-                temperatureLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100),
-                
-                cityLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-                cityLabel.topAnchor.constraint(equalTo: temperatureLabel.bottomAnchor, constant: 20),
-                
-                conditionLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-                conditionLabel.topAnchor.constraint(equalTo: cityLabel.bottomAnchor, constant: 20)
-            ])
-        }
     }
+    
+    //MARK: - Изменение цвета в зависимости от времени суток
+    
+    func setupBackground() {
+        let currentHour = Calendar.current.component(.hour, from: Date())
         
-// MARK: - Location Methods
+        
+        let backgroundImage: UIImage
+        
+        if currentHour >= 7 && currentHour < 15 {
+            // Утро: 7:00 - 14:59
+            backgroundImage = UIImage(named: "morning_background")!
+        } else if currentHour >= 15 && currentHour < 19 {
+            // Вечер: 15:00 - 18:59
+            backgroundImage = UIImage(named: "evening_background")!
+        } else {
+            // Ночь: 19:00 - 6:59
+            backgroundImage = UIImage(named: "night_background")!
+        }
+        let backgroundImageView = UIImageView(image: backgroundImage)
+        backgroundImageView.contentMode = .scaleAspectFill
+        backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(backgroundImageView)
+        
+        // Устанавливаем ограничения для изображения фона
+        NSLayoutConstraint.activate([
+            backgroundImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            backgroundImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            backgroundImageView.topAnchor.constraint(equalTo: view.topAnchor),
+            backgroundImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        
+        view.sendSubviewToBack(backgroundImageView)
+    }
+    
+    
+    // MARK: - Lifecycle Methods
+    
+    func setupUI() {
+        // Добавляем метки на экран
+        view.addSubview(temperatureLabel)
+        view.addSubview(cityLabel)
+        view.addSubview(conditionLabel)
+        
+        
+        NSLayoutConstraint.activate([
+            temperatureLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            temperatureLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100),
+            
+            cityLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            cityLabel.topAnchor.constraint(equalTo: temperatureLabel.bottomAnchor, constant: 20),
+            
+            conditionLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            conditionLabel.topAnchor.constraint(equalTo: cityLabel.bottomAnchor, constant: 20)
+        ])
+    }
+    
+    
+    // MARK: - Location Methods
     
     private func getLocation() {
         LocationManager.shared.getCurrentLocation { location in
@@ -97,7 +85,7 @@ class WeatherViewController: UIViewController {
                 switch result {
                 case .success(let success):
                     DispatchQueue.main.async {
-                        updateWeatherUI(with: success)
+                        self.updateWeatherUI(with: success)
                     }
                 case .failure(let failure):
                     print(failure)
@@ -105,18 +93,18 @@ class WeatherViewController: UIViewController {
             })
         }
     }
-}
-        
-// MARK: - Update Weather UI
-
-private func updateWeatherUI(with weatherModel: WeatherModel) {
+    
+    private func updateWeatherUI(with weatherModel: WeatherModel) {
         // Пример: обновляем UILabel с данными о погоде
-        let temperatureCelsius = weatherModel.list.first?.main.temp ?? 0 - 273.15
+        guard let temp = weatherModel.list.first?.main.temp else { return }
+        let temperatureCelsius = temp - 273.15
         let weatherCondition = weatherModel.list.first?.weather.first?.main.rawValue ?? "Неизвестно"
-        temperatureLabel.text = String(format: "%.2f°C", temperatureCelsius)
+        temperatureLabel.text = "\(Int(temperatureCelsius))°C"
         cityLabel.text = weatherModel.city.name
         conditionLabel.text = weatherCondition
     }
+}
+
 
 
 
