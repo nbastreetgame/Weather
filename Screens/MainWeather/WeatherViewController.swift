@@ -4,12 +4,29 @@ import UIKit
 
 class WeatherViewController: UIViewController {
     
-    
+  
     // MARK: - UI Elements
     
     private let temperatureLabel = CustomLabel(fontSize: 48)
     private let cityLabel = CustomLabel(fontSize: 24)
     private let conditionLabel = CustomLabel(fontSize: 36)
+    private let searchButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Search", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = .systemBlue
+        button.titleLabel?.font = .systemFont(ofSize: 17, weight: .bold)
+        button.layer.cornerRadius = 10
+        button.addTarget(self, action: #selector(buttonCityController), for: .touchUpInside)
+  
+        return button
+}()
+    @objc func buttonCityController() {
+        let CityViewController = CityViewController()
+        CityViewController.modalPresentationStyle = .fullScreen
+        present(CityViewController, animated: true)
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,16 +71,20 @@ class WeatherViewController: UIViewController {
     }
     
     
+    
     // MARK: - Lifecycle Methods
+    
     
     func setupUI() {
         // Добавляем метки на экран
         view.addSubview(temperatureLabel)
         view.addSubview(cityLabel)
         view.addSubview(conditionLabel)
+        view.addSubview(searchButton)
         
+     searchButton.translatesAutoresizingMaskIntoConstraints = false
         
-        NSLayoutConstraint.activate([
+        NSLayoutConstraint.activate ([
             temperatureLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             temperatureLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100),
             
@@ -71,15 +92,21 @@ class WeatherViewController: UIViewController {
             cityLabel.topAnchor.constraint(equalTo: temperatureLabel.bottomAnchor, constant: 20),
             
             conditionLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            conditionLabel.topAnchor.constraint(equalTo: cityLabel.bottomAnchor, constant: 20)
+            conditionLabel.topAnchor.constraint(equalTo: cityLabel.bottomAnchor, constant: 20),
+            
+            searchButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            searchButton.topAnchor.constraint(equalTo: conditionLabel.bottomAnchor, constant: 150),
+            searchButton.leadingAnchor.constraint(equalTo: searchButton.leadingAnchor,constant: 18),
+            searchButton.trailingAnchor.constraint(equalTo: searchButton.trailingAnchor,constant: 18),
         ])
+        
     }
     
     
     // MARK: - Location Methods
     
     private func getLocation() {
-        LocationManager.shared.getCurrentLocation { location in
+        LocationManager.shared.getCurrentLocation {  location in
             print(String(describing: location ))
             NetworkManager.shared.request(target: APIService.getWeather(lat: location.coordinate.latitude, lon: location.coordinate.longitude), model: WeatherModel.self, completion: { result in
                 switch result {
