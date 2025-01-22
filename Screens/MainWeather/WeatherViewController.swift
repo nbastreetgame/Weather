@@ -33,6 +33,7 @@ class WeatherViewController: UIViewController {
       //  setupBackground()
         setupUI()
         getLocation()
+        getCities()
         view.backgroundColor = .systemBackground
     }
     
@@ -82,6 +83,8 @@ class WeatherViewController: UIViewController {
         view.addSubview(conditionLabel)
         view.addSubview(searchButton)
         
+       
+        
      searchButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate ([
@@ -120,6 +123,19 @@ class WeatherViewController: UIViewController {
             })
         }
     }
+    private func getCities() {
+        NetworkManager.shared.request(target: APIService.getCities(name: "Москв"), model: DadataResponse.self, completion: { result in
+            switch result {
+            case .success(let success):
+                print(success.suggestions.first?.data)
+            case .failure(let failure):
+                print(failure.localizedDescription)
+            }
+        })
+    }
+    
+    
+    
     
     private func updateWeatherUI(with weatherModel: WeatherModel) {
         // Пример: обновляем UILabel с данными о погоде

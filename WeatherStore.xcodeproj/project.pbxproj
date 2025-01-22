@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5E8849B92D4108640065ED3E /* netfox in Frameworks */ = {isa = PBXBuildFile; productRef = 5E8849B82D4108640065ED3E /* netfox */; };
 		5EB6EAF32D3A6017005705F1 /* CombineMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 5EB6EAF22D3A6017005705F1 /* CombineMoya */; };
 		5EB6EAF52D3A6017005705F1 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 5EB6EAF42D3A6017005705F1 /* Moya */; };
 		5EB6EAF72D3A6017005705F1 /* ReactiveMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 5EB6EAF62D3A6017005705F1 /* ReactiveMoya */; };
@@ -73,6 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E8849B92D4108640065ED3E /* netfox in Frameworks */,
 				5EB6EAF52D3A6017005705F1 /* Moya in Frameworks */,
 				5EB6EAF32D3A6017005705F1 /* CombineMoya in Frameworks */,
 				5EB6EAF92D3A6017005705F1 /* RxMoya in Frameworks */,
@@ -135,6 +137,7 @@
 				5EB6EAF42D3A6017005705F1 /* Moya */,
 				5EB6EAF62D3A6017005705F1 /* ReactiveMoya */,
 				5EB6EAF82D3A6017005705F1 /* RxMoya */,
+				5E8849B82D4108640065ED3E /* netfox */,
 			);
 			productName = WeatherStore;
 			productReference = 18C75F452D32442B009E4590 /* WeatherStore.app */;
@@ -166,6 +169,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				5EB6EA542D38E6B1005705F1 /* XCRemoteSwiftPackageReference "Moya" */,
+				5E8849B72D4108640065ED3E /* XCRemoteSwiftPackageReference "netfox" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 18C75F462D32442B009E4590 /* Products */;
@@ -403,6 +407,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		5E8849B72D4108640065ED3E /* XCRemoteSwiftPackageReference "netfox" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kasketis/netfox";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.21.0;
+			};
+		};
 		5EB6EA542D38E6B1005705F1 /* XCRemoteSwiftPackageReference "Moya" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Moya/Moya";
@@ -414,6 +426,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		5E8849B82D4108640065ED3E /* netfox */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5E8849B72D4108640065ED3E /* XCRemoteSwiftPackageReference "netfox" */;
+			productName = netfox;
+		};
 		5EB6EAF22D3A6017005705F1 /* CombineMoya */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = CombineMoya;
