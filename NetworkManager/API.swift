@@ -1,4 +1,3 @@
-
 import Foundation
 import Moya
 
@@ -45,7 +44,7 @@ extension APIService: TargetType {
         case .getCities(name: let name):
             return .requestParameters(
                 parameters: ["query": name,"count": 2],
-                encoding: URLEncoding.queryString
+                encoding: JSONEncoding.default
             )
         }
     }

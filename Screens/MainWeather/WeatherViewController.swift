@@ -111,7 +111,7 @@ class WeatherViewController: UIViewController {
     private func getLocation() {
         LocationManager.shared.getCurrentLocation {  location in
             print(String(describing: location ))
-            NetworkManager.shared.request(target: APIService.getWeather(lat: location.coordinate.latitude, lon: location.coordinate.longitude), model: WeatherModel.self, completion: { result in
+            NetworkManager2.shared.request(target: APIService.getWeather(lat: location.coordinate.latitude, lon: location.coordinate.longitude), model: WeatherModel.self, completion: { result in
                 switch result {
                 case .success(let success):
                     DispatchQueue.main.async {
@@ -124,14 +124,19 @@ class WeatherViewController: UIViewController {
         }
     }
     private func getCities() {
-        NetworkManager.shared.request(target: APIService.getCities(name: "Москв"), model: DadataResponse.self, completion: { result in
+        NetworkManager2.shared.request (
+            target:APIService.getCities(name: "Москв"),
+            model: DadataResponse.self,
+            completion: { result in
             switch result {
             case .success(let success):
-                print(success.suggestions.first?.data)
+                print(success)
             case .failure(let failure):
-                print(failure.localizedDescription)
+                print(failure)
             }
-        })
+        }
+    )
+        
     }
     
     

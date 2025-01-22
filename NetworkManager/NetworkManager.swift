@@ -1,28 +1,29 @@
 import Foundation
 import Moya
 
-final class NetworkManager {
-    static let shared = NetworkManager()
-    private let provider = MoyaProvider<APIService>()
 
-    private init() {}
+final class NetworkManager2 {
+    static let shared = NetworkManager2()
+    private let provider = MoyaProvider<MultiTarget>()
 
-    
+    private init() {
+    }
+
     func request<T: Decodable>(
-        target: APIService,
+        target: TargetType,
         model: T.Type,
         completion: @escaping (Result<T, Error>) -> Void
     ) {
-        provider.request(target) { result in
+        provider.request(MultiTarget(target)) { result in
             switch result {
             case .success(let response):
                 do {
-                    let filteredResponse = try response.filterSuccessfulStatusCodes()
-                    let decodedData = try JSONDecoder().decode(T.self, from: filteredResponse.data)
+                    let decodedData = try JSONDecoder().decode(T.self, from: response.data)
                     completion(.success(decodedData))
                 } catch {
                     completion(.failure(error))
                 }
+
             case .failure(let error):
                 completion(.failure(error))
             }
