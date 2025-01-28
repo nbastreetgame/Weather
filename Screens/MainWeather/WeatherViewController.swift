@@ -1,5 +1,8 @@
 import UIKit
 
+
+
+
 // MARK: - WeatherViewController
 
 class WeatherViewController: UIViewController {
@@ -23,8 +26,8 @@ class WeatherViewController: UIViewController {
 }()
     @objc func buttonCityController() {
         let CityViewController = CityViewController()
-        CityViewController.modalPresentationStyle = .fullScreen
-        present(CityViewController, animated: true)
+   //     CityViewController.modalPresentationStyle = .fullScreen
+        navigationController?.pushViewController(CityViewController, animated: true)
         
     }
     
@@ -33,7 +36,6 @@ class WeatherViewController: UIViewController {
       //  setupBackground()
         setupUI()
         getLocation()
-        getCities()
         view.backgroundColor = .systemBackground
     }
     
@@ -47,13 +49,13 @@ class WeatherViewController: UIViewController {
         
         if currentHour >= 7 && currentHour < 15 {
             // Утро: 7:00 - 14:59
-            backgroundImage = UIImage(named: "morning_background")!
+            backgroundImage = UIImage(named: "morning weather")!
         } else if currentHour >= 15 && currentHour < 19 {
             // Вечер: 15:00 - 18:59
-            backgroundImage = UIImage(named: "evening_background")!
+            backgroundImage = UIImage(named: "evening weather")!
         } else {
             // Ночь: 19:00 - 6:59
-            backgroundImage = UIImage(named: "night_background")!
+            backgroundImage = UIImage(named: "night weather")!
         }
         let backgroundImageView = UIImageView(image: backgroundImage)
         backgroundImageView.contentMode = .scaleAspectFill
@@ -123,24 +125,8 @@ class WeatherViewController: UIViewController {
             })
         }
     }
-    private func getCities() {
-        NetworkManager2.shared.request (
-            target:APIService.getCities(name: "Москв"),
-            model: DadataResponse.self,
-            completion: { result in
-            switch result {
-            case .success(let success):
-                print(success)
-            case .failure(let failure):
-                print(failure)
-            }
-        }
-    )
-        
-    }
-    
-    
-    
+  
+
     
     private func updateWeatherUI(with weatherModel: WeatherModel) {
         // Пример: обновляем UILabel с данными о погоде

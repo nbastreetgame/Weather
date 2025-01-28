@@ -7,7 +7,10 @@
 
 import UIKit
 
+
 class CityViewController: UIViewController,UISearchBarDelegate {
+  
+    
  // MARK: - UI Elements
     
     private let searchBar: UISearchBar = {
@@ -28,12 +31,17 @@ class CityViewController: UIViewController,UISearchBarDelegate {
         tv.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         return tv
     }()
+    
+    private var cities = [String]()
+    private var filteredCities = [String]()
 //MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "back", style: .plain, target: nil, action: nil)
         view.backgroundColor = .systemBackground
+        
+        searchBar.delegate = self
         setupUI()
         
         
@@ -54,11 +62,28 @@ class CityViewController: UIViewController,UISearchBarDelegate {
             tableVw.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableVw.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableVw.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-            ])
-        }
-    func setupSearchBar() {
-           searchBar.delegate = self
+        ])
     }
+    private func getCities(text: String) {
+        NetworkManager2.shared.request (
+            target:APIService.getCities(name: text),
+            model: DadataResponse.self,
+            completion: { result in
+                switch result {
+                case .success(let success):
+                    print(success)
+                case .failure(let failure):
+                    print(failure)
+                }
+            }
+        )
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        getCities(text: searchText)
+        
+    }
+    
 }
 //MARK: - UITableViewDataSource
 extension CityViewController: UITableViewDataSource {
