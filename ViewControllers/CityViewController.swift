@@ -69,10 +69,19 @@ class CityViewController: UIViewController,UISearchBarDelegate {
         NetworkManager2.shared.request (
             target:APIService.getCities(name: text),
             model: DadataResponse.self,
-            completion: { result in
+            completion: { [weak self] result in
+                guard let self else { return }
                 switch result {
                 case .success(let success):
                     print(success)
+                    success.suggestions.forEach { element in
+                        if let city = element.data.city {
+                            self.filteredCities.append(city)
+                        } else if let region = element.data.region {
+                            self.filteredCities.append(region)
+                        }
+                    }
+                    self.tableVw.reloadData()
                 case .failure(let failure):
                     print(failure)
                 }
@@ -83,8 +92,6 @@ class CityViewController: UIViewController,UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         filteredCities = searchText.isEmpty ? cities : cities.filter({ $0.lowercased().contains(searchText.lowercased()) })
         getCities(text: searchText)
-        tableVw.reloadData()
-      
         
     }
     
@@ -105,6 +112,6 @@ extension CityViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 extension CityViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("Выбран город: \(cities[indexPath.row])")
+        print("Выбран город: \(filteredCities[indexPath.row])")
     }
 }
