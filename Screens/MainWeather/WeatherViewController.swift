@@ -49,13 +49,13 @@ class WeatherViewController: UIViewController {
         
         if currentHour >= 7 && currentHour < 15 {
             // Утро: 7:00 - 14:59
-            backgroundImage = UIImage(named: "morning weather")!
+            backgroundImage = UIImage(named: "morningweather")!
         } else if currentHour >= 15 && currentHour < 19 {
             // Вечер: 15:00 - 18:59
-            backgroundImage = UIImage(named: "evening weather")!
+            backgroundImage = UIImage(named: "eveningweather")!
         } else {
             // Ночь: 19:00 - 6:59
-            backgroundImage = UIImage(named: "night weather")!
+            backgroundImage = UIImage(named: "nightweather")!
         }
         let backgroundImageView = UIImageView(image: backgroundImage)
         backgroundImageView.contentMode = .scaleAspectFill

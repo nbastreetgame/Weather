@@ -49,6 +49,7 @@ class CityViewController: UIViewController,UISearchBarDelegate {
     private func setupUI() {
         
         tableVw.dataSource = self
+        tableVw.delegate = self
         
         view.addSubview(searchBar)
         view.addSubview(tableVw )
@@ -80,7 +81,10 @@ class CityViewController: UIViewController,UISearchBarDelegate {
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        filteredCities = searchText.isEmpty ? cities : cities.filter({ $0.lowercased().contains(searchText.lowercased()) })
         getCities(text: searchText)
+        tableVw.reloadData()
+      
         
     }
     
@@ -88,22 +92,19 @@ class CityViewController: UIViewController,UISearchBarDelegate {
 //MARK: - UITableViewDataSource
 extension CityViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return filteredCities.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableVw.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        switch indexPath.row {
-        case 0:
-            cell.backgroundColor = .systemBlue
-        case 1:
-            cell.backgroundColor = .systemGray
-        case 2:
-            cell.backgroundColor = .systemGreen
-        default:
-            break
-        }
+        cell.textLabel?.text = filteredCities[indexPath.row]
         return cell
     }
-     
+}
+
+// MARK: - UITableViewDelegate
+extension CityViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("Выбран город: \(cities[indexPath.row])")
+    }
 }
