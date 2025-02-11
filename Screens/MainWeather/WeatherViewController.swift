@@ -1,9 +1,6 @@
 import UIKit
 
-
-
-
-// MARK: - WeatherViewController
+    // MARK: - WeatherViewController
 
 class WeatherViewController: UIViewController {
     
@@ -26,10 +23,13 @@ class WeatherViewController: UIViewController {
 }()
     @objc func buttonCityController() {
         let CityViewController = CityViewController()
-   //     CityViewController.modalPresentationStyle = .fullScreen
-        navigationController?.pushViewController(CityViewController, animated: true)
+        CityViewController.onCitySelected = { [weak self] city in
+            self?.cityLabel.text = city
+        }
         
-    }
+    navigationController?.pushViewController(CityViewController, animated: true)
+        
+}
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,8 +73,6 @@ class WeatherViewController: UIViewController {
         view.sendSubviewToBack(backgroundImageView)
     }
     
-    
-    
     // MARK: - Lifecycle Methods
     
     
@@ -107,7 +105,6 @@ class WeatherViewController: UIViewController {
         
     }
     
-    
     // MARK: - Location Methods
     
     private func getLocation() {
@@ -126,8 +123,6 @@ class WeatherViewController: UIViewController {
         }
     }
   
-
-    
     private func updateWeatherUI(with weatherModel: WeatherModel) {
         // Пример: обновляем UILabel с данными о погоде
         guard let temp = weatherModel.list.first?.main.temp else { return }

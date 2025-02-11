@@ -9,6 +9,8 @@ import UIKit
 
 
 class CityViewController: UIViewController,UISearchBarDelegate {
+    
+    var onCitySelected: ((String) -> Void)?
   
     
  // MARK: - UI Elements
@@ -107,11 +109,15 @@ extension CityViewController: UITableViewDataSource {
         cell.textLabel?.text = filteredCities[indexPath.row]
         return cell
     }
+  
 }
 
 // MARK: - UITableViewDelegate
 extension CityViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedCity = filteredCities[indexPath.row]
+        onCitySelected?(selectedCity)
+        navigationController?.popViewController(animated: true)
         print("Выбран город: \(filteredCities[indexPath.row])")
     }
 }
