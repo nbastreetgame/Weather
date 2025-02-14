@@ -8,63 +8,58 @@
 import UIKit
 
 
-class CityViewController: UIViewController,UISearchBarDelegate {
-    
-    var onCitySelected: ((String) -> Void)?
-  
-    
- // MARK: - UI Elements
-    
-    private let searchBar: UISearchBar = {
+final class CityViewController: UIViewController {
+    // MARK: - UI Elements
+    private lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
-        searchBar.placeholder = "City Search"
+        searchBar.placeholder = "Please,Enter city name"
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         searchBar.backgroundImage = UIImage()
+        searchBar.delegate = self
         return searchBar
     }()
     
-    private let tableVw: UITableView = {
-        let tv = UITableView()
-        tv.translatesAutoresizingMaskIntoConstraints = false
-        tv.backgroundColor = .clear
-        tv.rowHeight = UITableView.automaticDimension
-        tv.estimatedRowHeight = 44
-        tv.separatorStyle = .none
-        tv.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
-        return tv
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.backgroundColor = .clear
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 44
+        tableView.separatorStyle = .none
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        return tableView
     }()
     
-    private var cities = [String]()
-    private var filteredCities = [String]()
-//MARK: - Lifecycle
+    // MARK: - Public Properties
+    var onCitySelected: ((CitySuggestion) -> Void)?
     
+    // MARK: - Private Properties
+    private var suggestions: [CitySuggestion] = []
+    
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "back", style: .plain, target: nil, action: nil)
-        view.backgroundColor = .systemBackground
-        
-        searchBar.delegate = self
         setupUI()
-        
-        
     }
+    
+    // MARK: - Private methods
     private func setupUI() {
-        
-        tableVw.dataSource = self
-        tableVw.delegate = self
-        
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "back", style: .plain, target: nil, action: nil)
+        view.backgroundColor = .systemBackground
         view.addSubview(searchBar)
-        view.addSubview(tableVw )
+        view.addSubview(tableView)
         
         NSLayoutConstraint.activate([
-            searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,constant: 10),
-            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: 16),
-            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: -16),
+    searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,constant: 10),
+    searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: 16),
+    searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: -16),
             
-            tableVw.topAnchor.constraint(equalTo: searchBar.bottomAnchor,constant: 30),
-            tableVw.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableVw.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableVw.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+    tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor,constant: 30),
+    tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+    tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+    tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
     private func getCities(text: String) {
@@ -76,48 +71,43 @@ class CityViewController: UIViewController,UISearchBarDelegate {
                 switch result {
                 case .success(let success):
                     print(success)
-                    success.suggestions.forEach { element in
-                        if let city = element.data.city {
-                            self.filteredCities.append(city)
-                        } else if let region = element.data.region {
-                            self.filteredCities.append(region)
-                        }
-                    }
-                    self.tableVw.reloadData()
+                    suggestions.append(contentsOf: success.suggestions.filter({ $0.data.latitude != nil && $0.data.longitude != nil}))
+                    self.tableView.reloadData()
                 case .failure(let failure):
                     print(failure)
                 }
             }
         )
     }
+}
+    // MARK: - UISearchBarDelegate
+    extension CityViewController: UISearchBarDelegate {
+        func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+            suggestions = []
+            getCities(text: searchText)
+        }
+    }
     
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        filteredCities = searchText.isEmpty ? cities : cities.filter({ $0.lowercased().contains(searchText.lowercased()) })
-        getCities(text: searchText)
+    //MARK: - UITableViewDataSource
+    extension CityViewController: UITableViewDataSource {
+        func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+            suggestions.count
+        }
+        
+        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+            let cell = UITableViewCell()
+            let data = suggestions[indexPath.row].data
+            cell.textLabel?.text = data.city ?? data.region
+            return cell
+        }
         
     }
     
-}
-//MARK: - UITableViewDataSource
-extension CityViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return filteredCities.count
+    // MARK: - UITableViewDelegate
+    extension CityViewController: UITableViewDelegate {
+        func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+            onCitySelected?(suggestions[indexPath.row])
+            navigationController?.popViewController(animated: true)
+        }
     }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableVw.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        cell.textLabel?.text = filteredCities[indexPath.row]
-        return cell
-    }
-  
-}
 
-// MARK: - UITableViewDelegate
-extension CityViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedCity = filteredCities[indexPath.row]
-        onCitySelected?(selectedCity)
-        navigationController?.popViewController(animated: true)
-        print("Выбран город: \(filteredCities[indexPath.row])")
-    }
-}

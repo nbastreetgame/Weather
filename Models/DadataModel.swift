@@ -7,15 +7,15 @@
 
 import Foundation
 
-struct DadataResponse: Codable {
+struct DadataResponse: Decodable {
     let suggestions: [CitySuggestion]
 }
 
-struct CitySuggestion: Codable {
+struct CitySuggestion: Decodable {
     let data: CityData
 }
 
-struct CityData: Codable {
+struct CityData: Decodable {
     let city: String?
     let latitude: String?
     let longitude: String?
