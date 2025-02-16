@@ -8,13 +8,14 @@
 
 import UIKit
 
-class CustomLabel: UILabel {
+final class CustomLabel: UILabel {
     init(fontSize: CGFloat) {
         super.init(frame: .zero)
         font = UIFont.systemFont(ofSize: fontSize)
         textAlignment = .center
         numberOfLines = 1
-        textColor = .black
+        textColor = .white
+        
     }
     
     required init?(coder: NSCoder) {

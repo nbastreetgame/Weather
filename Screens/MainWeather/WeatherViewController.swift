@@ -85,13 +85,13 @@ class WeatherViewController: UIViewController {
       private func setBackgroundState( state: BackgroundState) {
           switch state {
           case .evening:
-              backgroundImageView.backgroundColor = UIColor(named: "eveningWeather")
-              backgroundImageView.image = nil
+        //      backgroundImageView.backgroundColor = UIColor(named: "eveningWeather")
+              backgroundImageView.image = UIImage(named: "morningWeather")
           case .night:
-              backgroundImageView.backgroundColor = UIColor(named: "nightWeather")
-              backgroundImageView.image = nil
+       //       backgroundImageView.backgroundColor = UIColor(named: "nightWeather")
+              backgroundImageView.image = UIImage(named: "eveningWeather")
           case .morning:
-              backgroundImageView.image = UIImage(named: "morningWeather") ?? UIImage()
+              backgroundImageView.image = UIImage(named: "nightWeather") ?? UIImage()
               
           }
       }
@@ -105,6 +105,7 @@ class WeatherViewController: UIViewController {
           view.addSubview(cityLabel)
           view.addSubview(conditionLabel)
           view.addSubview(searchButton)
+          setupBackground()
         
 
         NSLayoutConstraint.activate ([

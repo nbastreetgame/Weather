@@ -8,12 +8,13 @@ final class LocationManager: NSObject, CLLocationManagerDelegate {
     
     private var location: CLLocation? {
         didSet {
-            guard let  location else { return }
+            guard let  location else {
+                return }
             locationFetchCompletion?(location)
         }
     }
     
-    public func getCurrentLocation(completion: @escaping(CLLocation ) -> Void) {
+    public func getCurrentLocation(completion: @escaping(CLLocation) -> Void) {
         locationFetchCompletion = completion
         manger.requestWhenInUseAuthorization()
         manger.delegate = self

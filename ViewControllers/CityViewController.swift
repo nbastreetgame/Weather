@@ -1,12 +1,4 @@
-//
-//  CityViewController.swift
-//  WeatherStore
-//
-//  Created by Андрей Попов on 21.01.2025.
-//
-
 import UIKit
-
 
 final class CityViewController: UIViewController {
     // MARK: - UI Elements
